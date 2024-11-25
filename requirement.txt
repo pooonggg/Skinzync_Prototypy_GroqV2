@@ -1,0 +1,7 @@
+Flask
+Flask-Session
+langchain
+langchain-ollama
+langchain-chroma
+langchain-groq
+langchain_community

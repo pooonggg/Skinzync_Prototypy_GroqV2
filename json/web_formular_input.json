@@ -1,0 +1,137 @@
+{
+    "Facial-Leave-on":{
+        "moisturizers":{
+            "dosage-form":["emulsions/creams","gelsserumessencestoner","balms","mists"],
+            "functions":["Hydrating","Exfoliating","Anti-aging","Brightening/Whitening","Soothing/Calming","Anti-acne","pore-minimizing","barrier-repair","Anti-pollution"],
+            "appearances":["clear/transparent","translucent","opaque"],
+            "texture":["watery","rich","glossy","matte","non-sticky","Heavy","Light"]
+        },
+        "sunscreens":{
+            "dosage-form":["emulsions/creams","gels","balms","spray"],
+            "type-of-sunscreens" :["Chemical","Hybrid"],
+            "SPF" :["35-50","> 50"],
+            "PA" :["(+++)","(++++)"],
+            "appearances":["clear/transparent","translucent","opaque"],
+            "texture":["cream-to-water","watery","soft","glossy","matte","non-sticky"]
+        },
+        "dark-spot-treatment":{
+            "dosage-form":["gels"],
+            "appearances":["clear/transparent","translucent","opaque"]
+        },
+        "acne-spot-treatment":{
+            "dosage-form":["gels"],
+            "appearances":["clear/transparent","translucent","opaque"]
+        },
+        "under-eye-treatment":{
+            "dosage-form":["emulsions/creams","gels"],
+            "functions":["Hydrating","Firming","Brightening/Whitening"],
+            "appearances":["clear/transparent","translucent","opaque"]
+        },
+        "lip-care":{
+            "dosage-form":["emulsions/creams","gels","balms","oils"],
+            "functions" :["Hydrating/Nourishing","plumping","Sun-protection","Exfoliating"],
+            "appearances":["clear/transparent","translucent","opaque"],
+            "texture":["watery","rich","glossy","matte","non-sticky","Heavy","Light"]
+        }
+},
+    "Facial-Rinse-off":{
+        "makeup(remover/cleansing)":{
+            "dosage-form":["emulsions/creams","gels","balms","oils"],
+            "appearances":["clear/transparent","translucent","opaque"],
+        },
+        "cleanser":{
+            "dosage-form":["emulsions/creams","gels"],
+            "appearances":["clear/transparent","translucent","opaque"],
+        },
+        "Rinse-off-Mask":{
+            "dosage-form":["emulsions/creams","clays","gels"],
+            "appearances":["translucent","opaque"]
+        },
+        "exfoliating-scrub":{
+            "dosage-form":["emulsions/creams","gels"],
+            "appearances":["translucent","opaque"]
+        },
+        "Hair-remover":{
+            "dosage-form":["emulsions/creams","mousse"],
+            "appearances":["opaque"]
+        }
+},
+    "Body-Leave-on":{
+        "moisturizers":{
+            "dosage-form":["emulsions/creams","gels/serum"],
+            "functions":["Hydrating","Exfoliating","Anti-aging","Brightening/Whitening","Soothing/Calming","Anti-acne","barrier-repair","Anti-pollution"],
+            "part-of-body":["whole-body","knee/elbows","intimate","Hands","feets","stretch-mark"],
+            "appearances":["clear/transparent","translucent","opaque"],
+            "texture":["watery","rich","glossy","matte","non-sticky","Heavy","Light"]
+        },
+        "sunscreens":{
+            "dosage-form":["emulsions/creams","gels","spray"],
+            "type-of-sunscreens" :["Chemical","Hybrid"],
+            "SPF" :["35-50","> 50"],
+            "PA" :["(+++)","(++++)"],
+            "appearances":["clear/transparent","translucent","opaque"],
+            "texture":["cream-to-water","watery","soft","glossy","matte","non-sticky"]
+        },
+        "lip-care":{
+            "dosage-form":["emulsions/creams","gels","balms","powder","spray"],
+            "functions" :["Hydrating/Nourishing","plumping","Sun-protection","Exfoliating"],
+            "appearances":["clear/transparent","translucent","opaque"],
+        }
+},
+    "Body-Rinse-off":{
+        "soap":{
+            "dosage-form":["bar","liquid","syndet"],
+        },
+        "shower":{
+            "dosage-form":["oils","gels"],
+            "functions" :["Hydrating","Exfoliating","Anti-aging","Brightening/Whitening","Soothing/Calming"],
+            "appearances":["clear/transparent","translucent","opaque"],
+        },
+        "Hair-remover":{
+            "dosage-form":["emulsions/creams","mousse"],
+            "appearances":["opaque"]
+        }
+},
+    "Hair-Leave-ins":{
+        "Treatment":{
+            "dosage-form":["emulsions/creams","serums/tonic","oils"],
+            "functions":["Strengthening","Anti-hair-fall","Anti-dandruff","color-protecting","Anti-frizz","soothing/calming"],
+            "part-of-body":["hair","scalp"],
+            "appearances":["clear/transparent","translucent","opaque"],
+        },
+
+        "dry-shampoo":{
+            "dosage-form":["powder","spray"],
+        }
+},
+    "Hair-Rinse-off":{
+        "Shampoo":{
+            "dosage-form":["gels","powder"],
+            "functions":["Strengthening","Anti-hair-fall","Anti-dandruff","color-protecting","Anti-frizz","Anti-oily"],
+            "appearances":["clear/transparent","translucent","opaque"]
+        },
+        "Conditioner":{
+            "dosage-form":["emulsions/creams"],
+            "functions":["Strengthening","Anti-hair-fall","Anti-dandruff","color-protecting","Anti-frizz"],
+        },
+        "Treatment/mask":{
+            "dosage-form":["emulsions/creams"],
+            "functions":["Strengthening","Anti-hair-fall","Anti-dandruff","color-protecting","Anti-frizz"],
+            "part-of-body":["hair","scalp"]
+        },
+        "scrub":{
+            "dosage-form":["emulsions/creams","gels","powder"],
+            "part-of-body":["scalp"],
+            "appearances":["translucent","opaque"]
+        }    
+    }
+}
+
+//if Input["Facial-Leave-on"]["moisturizers"]["dosage-form"]=="emulsions/creams": show{time of used:["day","night(sleeping)"]}
+//if Input["Facial-Leave-on"]["sunscreens"]["dosage-form"]=="emulsions/creams": show{type-of-sunscreens:[Physical]}
+//if Input["Facial-Leave-on"]["lip-care"]["functions"]=="Sun-protection": show{"SPF" :["15-30","35-50","> 50"],"PA" :["(+++)","(++++)"]}
+//if Input["Body-Leave-on"]["sunscreens"]["dosage-form"]=="emulsions/creams": show{type-of-sunscreens:[Physical]}
+//if Input["Body-Rinse-off"]["shower"]["functions"]=="Exfoliating": show{"dosage-form":["scrub"]}
+
+//* จะสังเกตว่าทุกช่องตอนนี้จะเป็นchoice (texture เป็น multiple choices) ยกเว้น viscosity range
+//* viscosity range,claims(choice)(ทึบ),specific ingredients(choice)(ทึบ), "target group":{"Gender":["Male","Female"],"Age":["All","Baby","Adult","Elderly"],"Skin-type":["normal","dry","oily","sensitive"]} ต้องมีให้ใส่ทุกหน้า

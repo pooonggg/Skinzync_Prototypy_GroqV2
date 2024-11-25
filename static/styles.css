@@ -1,0 +1,150 @@
+/* styles.css */
+
+/* General Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333333;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.logo {
+    max-width: 200px;
+    display: block;
+    margin: 20px auto;
+}
+h1 {
+    text-align: center;
+    color: #5C2E91; /* Purple color */
+    margin-bottom: 30px;
+}
+form {
+    margin-top: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #5C2E91;
+}
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    appearance: none; /* Remove default styles for select */
+}
+select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333333" d="M0 0l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 5px;
+    padding-right: 30px;
+}
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #5C2E91;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #4e2480;
+}
+input[type="submit"]:disabled {
+    background-color: #999999;
+    cursor: not-allowed;
+}
+select[multiple],
+select[size] {
+    background-image: none;
+    height: auto;
+}
+textarea {
+    height: 100px;
+}
+.message {
+    text-align: center;
+    font-weight: bold;
+    color: #5C2E91;
+}
+.error {
+    color: #ff0000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* Styles for Texture Tags */
+.tags-input {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    min-height: 46px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+.tags-input .tag {
+    background-color: #5C2E91;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+}
+.tags-input .tag .remove-tag {
+    background: none;
+    border: none;
+    color: #ffffff;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.tags-input input {
+    border: none;
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    min-width: 100px;
+    background-color: transparent;
+}
+.tags-input input:focus {
+    outline: none;
+}
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+}
+
+/* Highlight error fields */
+.error-field {
+    border-color: red;
+}
+/* Responsive styling */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    .logo {
+        max-width: 150px;
+    }
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}

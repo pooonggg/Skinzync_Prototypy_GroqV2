@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation - Cosmetic Formula Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Basic styling for API documentation */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333333;
+        }
+        h1, h2, h3 {
+            color: #5C2E91;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 40px;
+        }
+        .note {
+            background-color: #fffae6;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .example {
+            background-color: #e6f7ff;
+            padding: 10px;
+            border-left: 4px solid #1890ff;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Documentation</h1>
+    <h2>Cosmetic Formula Generator API</h2>
+    <p>This API allows users to generate cosmetic formulas based on specified input parameters.</p>
+
+    <h3>Endpoint</h3>
+    <p><code>POST /api/generate_formulas</code></p>
+
+    <h3>Method</h3>
+    <p><strong>POST</strong></p>
+
+    <h3>Request Format</h3>
+    <p>The request body must be in JSON format and include the following keys:</p>
+    <pre>
+{
+    "user_id": "string",
+    "formula_input": {
+        "pH": float,
+        "Viscosity (cps)": float,
+        "Appearance": "string"
+    }
+}
+    </pre>
+    <p><strong>Details:</strong></p>
+    <ul>
+        <li><code>user_id</code>: A unique identifier for the user (string).</li>
+        <li><code>formula_input</code>: An object containing the formula specifications.
+            <ul>
+                <li><code>pH</code>: Desired pH value of the formula (float).</li>
+                <li><code>Viscosity (cps)</code>: Desired viscosity in centipoise (float).</li>
+                <li><code>Appearance</code>: Description of the desired appearance (string).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Response Format</h3>
+    <p>The response will be in JSON format and include the following keys:</p>
+    <pre>
+{
+    "user_id": "string",
+    "formula_input": {
+        "pH": float,
+        "Viscosity (cps)": float,
+        "Appearance": "string"
+    },
+    "formula_output": {
+        "formula_1": {
+            "pH": float,
+            "Viscosity (cps)": float,
+            "Appearance": "string",
+            "Ingredients": [
+                {
+                    "Ingredient": "string",
+                    "Phase": "string",
+                    "%w/w": float,
+                    "Function": "string",
+                    "Supplier": "string"
+                },
+                ...
+            ],
+            "Additional Properties": {
+                "absorption time": integer (1-5),
+                "Advance delivery system": integer (1-5),
+                "Matte-Finish and Oil control": integer (1-5),
+                "Long lasting hydration": integer (1-5),
+                "Spreadability": integer (1-5),
+                "Ease of formulating": integer (1-5)
+            }
+        },
+        "formula_2": { ... },
+        "formula_3": { ... }
+    }
+}
+    </pre>
+    <p><strong>Note:</strong> Each formula includes the same <code>pH</code>, <code>Viscosity (cps)</code>, and <code>Appearance</code> as provided in the input.</p>
+
+    <h3>Example Request</h3>
+    <div class="example">
+        <p><strong>Endpoint:</strong> <code>POST http://yourdomain.com/api/generate_formulas</code></p>
+        <p><strong>Headers:</strong></p>
+        <pre>
+Content-Type: application/json
+        </pre>
+        <p><strong>Body:</strong></p>
+        <pre>
+{
+    "user_id": "user123",
+    "formula_input": {
+        "pH": 5.5,
+        "Viscosity (cps)": 29600.0,
+        "Appearance": "white cream"
+    }
+}
+        </pre>
+    </div>
+
+    <h3>Example Response</h3>
+    <div class="example">
+        <pre>
+{
+    "user_id": "user123",
+    "formula_input": {
+        "pH": 5.5,
+        "Viscosity (cps)": 29600.0,
+        "Appearance": "white cream"
+    },
+    "formula_output": {
+        "formula_1": {
+            "pH": 5.5,
+            "Viscosity (cps)": 29600.0,
+            "Appearance": "white cream",
+            "Ingredients": [
+                {
+                    "Ingredient": "Water",
+                    "Phase": "A",
+                    "%w/w": 70.0,
+                    "Function": "Solvent",
+                    "Supplier": "-"
+                },
+                {
+                    "Ingredient": "Glycerin",
+                    "Phase": "A",
+                    "%w/w": 5.0,
+                    "Function": "Humectant",
+                    "Supplier": "-"
+                },
+                ...
+            ],
+            "Additional Properties": {
+                "absorption time": 4,
+                "Advance delivery system": 2,
+                "Matte-Finish and Oil control": 5,
+                "Long lasting hydration": 3,
+                "Spreadability": 4,
+                "Ease of formulating": 5
+            }
+        },
+        "formula_2": { ... },
+        "formula_3": { ... }
+    }
+}
+        </pre>
+    </div>
+
+    <h3>Error Responses</h3>
+    <p>The API may return the following error codes:</p>
+    <ul>
+        <li><strong>400 Bad Request:</strong> Invalid input format or missing required fields.
+            <pre>
+{
+    "error": "Error message describing the issue"
+}
+            </pre>
+        </li>
+        <li><strong>500 Internal Server Error:</strong> An error occurred on the server.
+            <pre>
+{
+    "error": "Error message describing the issue"
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Usage Instructions</h3>
+    <p>To use the API, follow these steps:</p>
+    <ol>
+        <li>Prepare your request data in JSON format as specified in the request format section.</li>
+        <li>Send a POST request to the API endpoint <code>/api/generate_formulas</code> with the JSON data in the request body.</li>
+        <li>Ensure that the <code>Content-Type</code> header is set to <code>application/json</code>.</li>
+        <li>Handle the response from the server. If the request is successful, you will receive a JSON object containing the generated formulas.</li>
+        <li>If an error occurs, the response will contain an <code>error</code> key with a message describing the issue.</li>
+    </ol>
+
+    <h3>Example CURL Command</h3>
+    <pre>
+curl -X POST http://yourdomain.com/api/generate_formulas \
+-H 'Content-Type: application/json' \
+-d '{
+    "user_id": "user123",
+    "formula_input": {
+        "pH": 5.5,
+        "Viscosity (cps)": 29600.0,
+        "Appearance": "white cream"
+    }
+}'
+    </pre>
+
+    <h3>Testing the API</h3>
+    <p>You can test the API using tools like <a href="https://www.postman.com/" target="_blank">Postman</a> or <a href="https://insomnia.rest/" target="_blank">Insomnia</a> by sending a POST request to the endpoint with the required JSON data.</p>
+
+    <h3>Notes</h3>
+    <ul>
+        <li>Ensure that all numerical values are of the correct type (e.g., <code>float</code> for <code>pH</code> and <code>Viscosity (cps)</code>).</li>
+        <li>The <code>Ingredients</code> list in the response will include an added <code>Supplier</code> key with a value of <code>"-"</code>.</li>
+        <li>The <code>Additional Properties</code> are randomly generated integers between 1 and 5.</li>
+        <li>All three formulas will have the same <code>pH</code>, <code>Viscosity (cps)</code>, and <code>Appearance</code> as provided in the input.</li>
+    </ul>
+
+    <h3>Contact</h3>
+    <p>If you encounter any issues or have questions about the API, please contact the API administrator.</p>
+</body>
+</html>

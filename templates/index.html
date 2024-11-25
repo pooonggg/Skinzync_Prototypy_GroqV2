@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cosmetic Formula Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        let selectedTextures = [];
+        {% if formula_input.texture %}
+            selectedTextures = {{ formula_input.texture | tojson }};
+        {% endif %}
+
+        function addTexture() {
+            const textureSelect = document.getElementById('textureSelect');
+            const selectedOption = textureSelect.value;
+
+            if (selectedOption && !selectedTextures.includes(selectedOption)) {
+                if (selectedTextures.length < 3) {
+                    selectedTextures.push(selectedOption);
+                    updateTextureTags();
+                    document.getElementById('textureError').textContent = '';
+                } else {
+                    document.getElementById('textureError').textContent = 'You can select up to 3 textures only.';
+                }
+            }
+
+            // Reset the select input
+            textureSelect.selectedIndex = 0;
+        }
+
+        function removeTexture(texture) {
+            selectedTextures = selectedTextures.filter(t => t !== texture);
+            updateTextureTags();
+            document.getElementById('textureError').textContent = '';
+        }
+
+        function updateTextureTags() {
+            const tagsContainer = document.getElementById('textureTags');
+            tagsContainer.innerHTML = '';
+
+            selectedTextures.forEach(texture => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.textContent = texture;
+
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-tag';
+                removeBtn.type = 'button';
+                removeBtn.textContent = 'x';
+                removeBtn.onclick = () => removeTexture(texture);
+
+                tag.appendChild(removeBtn);
+                tagsContainer.appendChild(tag);
+            });
+
+            // Update the hidden input fields
+            const textureInputsContainer = document.getElementById('textureInputs');
+            textureInputsContainer.innerHTML = '';
+
+            selectedTextures.forEach(texture => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'texture';
+                input.value = texture;
+                textureInputsContainer.appendChild(input);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTextureTags();
+            {% if errors %}
+                // Scroll to the first error field
+                const firstErrorField = document.querySelector('.error-field');
+                if (firstErrorField) {
+                    firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstErrorField.focus();
+                }
+            {% endif %}
+        });
+
+        function disableSubmit() {
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            const message = document.getElementById('processingMessage');
+            message.style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='LOGO-legacy.png') }}" alt="Logo" class="logo">
+        <h1>Cosmetic Formula Generator</h1>
+        {% if errors.general %}
+            <div class="error">{{ errors.general }}</div>
+        {% endif %}
+        <form method="post" onsubmit="disableSubmit();">
+            <label for="formulationType">Formulation Type:</label>
+            <select name="formulationType" id="formulationType" required class="{% if errors.formulationType %}error-field{% endif %}">
+                {% for choice in formulation_types %}
+                    <option value="{{ choice }}" {% if formula_input.get('formulationType') == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+            </select>
+            {% if errors.formulationType %}
+                <div class="error-message">{{ errors.formulationType }}</div>
+            {% endif %}
+
+            <label for="variant">Variant:</label>
+            <select name="variant" id="variant" required class="{% if errors.variant %}error-field{% endif %}">
+                {% for choice in variants %}
+                    <option value="{{ choice }}" {% if formula_input.get('variant') == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+            </select>
+            {% if errors.variant %}
+                <div class="error-message">{{ errors.variant }}</div>
+            {% endif %}
+
+            <label for="dosageForm">Dosage Form:</label>
+            <select name="dosageForm" id="dosageForm" required class="{% if errors.dosageForm %}error-field{% endif %}">
+                {% for choice in dosage_forms %}
+                    <option value="{{ choice }}" {% if formula_input.get('dosageForm') == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+            </select>
+            {% if errors.dosageForm %}
+                <div class="error-message">{{ errors.dosageForm }}</div>
+            {% endif %}
+
+            <label for="functions">Functions:</label>
+            <select name="functions" id="functions" required class="{% if errors.functions %}error-field{% endif %}">
+                {% for choice in functions_list %}
+                    <option value="{{ choice }}" {% if formula_input.get('functions') == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+            </select>
+            {% if errors.functions %}
+                <div class="error-message">{{ errors.functions }}</div>
+            {% endif %}
+
+            <label for="appearances">Appearance:</label>
+            <select name="appearances" id="appearances" required class="{% if errors.appearances %}error-field{% endif %}">
+                {% for choice in appearances %}
+                    <option value="{{ choice }}" {% if formula_input.get('appearances') == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+            </select>
+            {% if errors.appearances %}
+                <div class="error-message">{{ errors.appearances }}</div>
+            {% endif %}
+
+            <label for="textureSelect">Texture:</label>
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <select id="textureSelect" style="flex: 1; margin-right: 10px;">
+                    <option value="" disabled selected>Select a texture</option>
+                    {% for choice in texture_choices %}
+                        <option value="{{ choice }}">{{ choice }}</option>
+                    {% endfor %}
+                </select>
+                <button type="button" onclick="addTexture()" style="padding: 10px 15px; background-color: #5C2E91; color: #ffffff; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+            </div>
+            <div id="textureTags" class="tags-input {% if errors.texture %}error-field{% endif %}"></div>
+            <div id="textureInputs"></div> <!-- Container for hidden input fields -->
+            {% if errors.texture %}
+                <div id="textureError" class="error-message">{{ errors.texture }}</div>
+            {% else %}
+                <div id="textureError" class="error-message"></div>
+            {% endif %}
+
+            <label for="ph">pH:</label>
+            <input type="number" step="0.1" name="ph" id="ph" required class="{% if errors.ph %}error-field{% endif %}" value="{{ formula_input.get('ph', '5.5') }}">
+            {% if errors.ph %}
+                <div class="error-message">{{ errors.ph }}</div>
+            {% endif %}
+
+            <label for="minViscosity">Minimum Viscosity (cps):</label>
+            <input type="number" step="0.1" name="minViscosity" id="minViscosity" required class="{% if errors.minViscosity %}error-field{% endif %}" value="{{ formula_input.get('minViscosity', '15000') }}">
+            {% if errors.minViscosity %}
+                <div class="error-message">{{ errors.minViscosity }}</div>
+            {% endif %}
+
+
+            <label for="maxViscosity">Maximum Viscosity (cps):</label>
+            <input type="number" step="0.1" name="maxViscosity" id="maxViscosity" required class="{% if errors.maxViscosity %}error-field{% endif %}" value="{{ formula_input.get('maxViscosity', '16000') }}">
+            {% if errors.maxViscosity %}
+                <div class="error-message">{{ errors.maxViscosity }}</div>
+            {% endif %}
+
+
+            <input type="submit" value="Generate Formulas" id="submitButton">
+        </form>
+        <div id="processingMessage" class="message" style="display: none;">
+            Processing, please wait...
+        </div>
+    </div>
+</body>
+</html>
